@@ -1,12 +1,14 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-const ActiveListsScreen = () => {
+import {MainProps} from '../navigation/RootNavigator';
+
+const ActiveListsScreen = ({navigation}: MainProps) => {
   return (
     <View style={styles.container}>
       <Text>ActiveListsScreen</Text>
       <TouchableOpacity
         style={styles.newListButton}
-        onPress={() => console.log('button pressed')}>
+        onPress={() => navigation.navigate('NewList')}>
         <Text style={{color: '#fff', fontSize: 30}}>+</Text>
       </TouchableOpacity>
     </View>
