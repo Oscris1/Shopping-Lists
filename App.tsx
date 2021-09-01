@@ -1,22 +1,13 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import TopTabNavigator from './navigation/TopTabNavigator';
 
 const App = () => {
   return (
-    <View>
-      <Text>Hello world</Text>
-    </View>
+    <NavigationContainer>
+      <TopTabNavigator />
+    </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({});
 
 export default App;
