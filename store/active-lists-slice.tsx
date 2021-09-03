@@ -25,8 +25,18 @@ const activeListsSlice = createSlice({
 
       listsAdapter.updateOne(state, newPayload);
     },
+    removeListItem(state, {payload}) {
+      const newList = state.entities[payload.id]?.listItems.filter(
+        item => item !== payload.item,
+      );
+      const newPayload = {
+        id: payload.id,
+        changes: {listItems: newList},
+      };
+      listsAdapter.updateOne(state, newPayload);
+    },
   },
 });
 
-export const {addList, updateList} = activeListsSlice.actions;
+export const {addList, updateList, removeListItem} = activeListsSlice.actions;
 export default activeListsSlice.reducer;

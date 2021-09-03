@@ -6,7 +6,9 @@ import {
   TextInput,
   TouchableOpacity,
   FlatList,
+  Keyboard,
 } from 'react-native';
+
 import {ListDetailsProps} from '../navigation/RootNavigator';
 import {useSelector} from 'react-redux';
 import {useAppDispatch} from '../store';
@@ -29,12 +31,14 @@ const ListDetailsScreen = ({route}: ListDetailsProps) => {
     if (name) {
       const id = uuidv4();
       dispatch(updateList({id: route.params.listId, item: id}));
-      dispatch(addItem({id, name}));
+      dispatch(addItem({id, name, isChecked: false}));
+      Keyboard.dismiss();
+      setName('');
     }
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <View style={styles.listNameBox}>
         <TextInput
           style={styles.input}
@@ -47,9 +51,16 @@ const ListDetailsScreen = ({route}: ListDetailsProps) => {
         </TouchableOpacity>
       </View>
       <FlatList
-        style={{}}
+        keyboardShouldPersistTaps={'handled'}
+        style={styles.flatlist}
         data={list}
-        renderItem={({item}) => <ListItem itemID={item} />}
+        renderItem={({item, index}) => (
+          <ListItem
+            index={index + 1}
+            itemID={item}
+            listId={route.params.listId}
+          />
+        )}
         keyExtractor={item => item}
       />
     </View>
@@ -57,19 +68,17 @@ const ListDetailsScreen = ({route}: ListDetailsProps) => {
 };
 
 const styles = StyleSheet.create({
-  addItemContainer: {
-    paddingVertical: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    borderBottomWidth: 3,
-    backgroundColor: 'lightgrey',
+  container: {
+    flex: 1,
   },
   input: {
     backgroundColor: '#fff',
     width: '50%',
   },
   listNameBox: {
+    marginTop: 0,
+    paddingVertical: 12,
+    backgroundColor: '#FFF8E5',
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 10,
@@ -79,8 +88,8 @@ const styles = StyleSheet.create({
     padding: 15,
     backgroundColor: '#B8DFD8',
     borderBottomEndRadius: 20,
-    //borderTopEndRadius: 20,
   },
+  flatlist: {},
 });
 
 export default ListDetailsScreen;

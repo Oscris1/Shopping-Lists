@@ -3,6 +3,7 @@ import {createSlice, createEntityAdapter} from '@reduxjs/toolkit';
 interface ShoppingListItem {
   id: string;
   name: string;
+  isChecked: boolean;
 }
 
 export const listItemsAdapter = createEntityAdapter<ShoppingListItem>({
@@ -14,8 +15,9 @@ const listItemsSlice = createSlice({
   initialState: listItemsAdapter.getInitialState(),
   reducers: {
     addItem: listItemsAdapter.addOne,
+    removeItem: listItemsAdapter.removeOne,
   },
 });
 
-export const {addItem} = listItemsSlice.actions;
+export const {addItem, removeItem} = listItemsSlice.actions;
 export default listItemsSlice.reducer;
