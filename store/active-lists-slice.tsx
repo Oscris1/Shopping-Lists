@@ -1,47 +1,32 @@
-import {
-  createSlice,
-  createAsyncThunk,
-  PayloadAction,
-  nanoid,
-} from '@reduxjs/toolkit';
+import {createSlice, createEntityAdapter} from '@reduxjs/toolkit';
 
-interface Ingredients {
-  id?: string;
-  name?: string;
-}
-
-interface ListsInterface {
+interface ListInterface {
   id: string;
   name: string;
-  ingredients: Ingredients[];
+  listItems: string[];
 }
 
-interface ActiveLists {
-  lists: ListsInterface[];
-}
-
-const initialState = {
-  lists: [],
-} as ActiveLists;
+export const listsAdapter = createEntityAdapter<ListInterface>({
+  selectId: list => list.id,
+});
 
 const activeListsSlice = createSlice({
   name: 'activeLists',
-  initialState,
+  initialState: listsAdapter.getInitialState(),
   reducers: {
-    addNewList: {
-      reducer: (state, action: PayloadAction<ListsInterface>) => {
-        //photo state
-        state.lists.push(action.payload);
-      },
-      prepare: (name: string) => {
-        const id = nanoid();
-        return {payload: {id, name, ingredients: []}};
-      },
+    addList: listsAdapter.addOne,
+    updateList(state, {payload}) {
+      const newState = state.entities[payload.id]?.listItems;
+      newState?.push(payload.item);
+      const newPayload = {
+        id: payload.id,
+        changes: {listItems: newState},
+      };
+
+      listsAdapter.updateOne(state, newPayload);
     },
   },
-  extraReducers: builder => {},
 });
 
-export const {addNewList} = activeListsSlice.actions;
-
+export const {addList, updateList} = activeListsSlice.actions;
 export default activeListsSlice.reducer;
