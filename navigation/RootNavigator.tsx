@@ -33,7 +33,13 @@ const RootNavigator = () => {
       <Stack.Screen
         name="ListDetails"
         component={ListDetailsScreen}
-        options={({route}) => ({title: route.params.listName})}
+        options={({route}) => ({
+          title: route.params.listName,
+          headerStyle: {
+            backgroundColor: '#07031A',
+          },
+          headerTintColor: '#fff',
+        })}
       />
     </Stack.Navigator>
   );

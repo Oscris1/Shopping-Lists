@@ -45,6 +45,7 @@ const ListDetailsScreen = ({route}: ListDetailsProps) => {
           onChangeText={setName}
           value={name}
           placeholder="Item"
+          placeholderTextColor="#6C7B95"
         />
         <TouchableOpacity style={styles.button} onPress={addItemWrapper}>
           <Text>Add!</Text>
@@ -65,25 +66,34 @@ const ListDetailsScreen = ({route}: ListDetailsProps) => {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: '#07031A',
     flex: 1,
   },
   input: {
-    backgroundColor: '#fff',
+    backgroundColor: '#1B1B2F',
     width: '50%',
+    color: '#fff',
+    borderBottomLeftRadius: 20,
+    borderTopLeftRadius: 30,
+    paddingLeft: 20,
   },
   listNameBox: {
     marginTop: 0,
-    paddingVertical: 12,
-    backgroundColor: '#FFF8E5',
+    paddingBottom: 12,
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 10,
     flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderColor: '#6C7B95',
   },
   button: {
     padding: 15,
-    backgroundColor: '#B8DFD8',
+    backgroundColor: '#fff',
+    borderRadius: 1,
+    borderColor: 'black',
     borderBottomEndRadius: 20,
+    borderTopEndRadius: 20,
   },
   flatlist: {},
 });

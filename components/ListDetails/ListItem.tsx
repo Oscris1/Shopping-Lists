@@ -48,7 +48,9 @@ const ListItem: React.FC<Props> = ({itemID, listId}) => {
           {item?.isChecked && <View style={styles.pressBoxChecked} />}
         </TouchableOpacity>
 
-        <Text style={{maxWidth: '50%'}}>{item && item.name}</Text>
+        <Text style={{maxWidth: '50%', color: '#fff'}}>
+          {item && item.name}
+        </Text>
         <TouchableOpacity
           onPress={createTwoButtonAlert}
           style={styles.removeButton}>
@@ -73,7 +75,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '80%',
     padding: 12,
-    backgroundColor: '#FFF8E5',
+    backgroundColor: '#1B1B2F',
     borderTopLeftRadius: 20,
     borderBottomRightRadius: 20,
   },
@@ -84,17 +86,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '80%',
     padding: 12,
-    backgroundColor: '#C2F784',
+    backgroundColor: '#222831',
     borderWidth: 1,
     borderColor: '#5D8233',
     borderTopLeftRadius: 20,
     borderBottomRightRadius: 20,
-  },
-  input: {
-    backgroundColor: '#fff',
-    width: '60%',
-    borderRadius: 5,
-    height: '80%',
   },
   removeButton: {
     backgroundColor: '#E98580',
