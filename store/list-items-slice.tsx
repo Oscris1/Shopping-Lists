@@ -16,8 +16,9 @@ const listItemsSlice = createSlice({
   reducers: {
     addItem: listItemsAdapter.addOne,
     removeItem: listItemsAdapter.removeOne,
+    updateItem: listItemsAdapter.updateOne,
   },
 });
 
-export const {addItem, removeItem} = listItemsSlice.actions;
+export const {addItem, removeItem, updateItem} = listItemsSlice.actions;
 export default listItemsSlice.reducer;

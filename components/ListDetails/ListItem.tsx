@@ -3,16 +3,15 @@ import {View, Text, StyleSheet, TouchableOpacity, Alert} from 'react-native';
 import {useSelector} from 'react-redux';
 import {listItemsSelectors, RootState} from '../../store';
 import {useAppDispatch} from '../../store';
-import {removeItem} from '../../store/list-items-slice';
+import {removeItem, updateItem} from '../../store/list-items-slice';
 import {removeListItem} from '../../store/active-lists-slice';
 
 interface Props {
   itemID: string;
-  index: number;
   listId: string;
 }
 
-const ListItem: React.FC<Props> = ({itemID, index, listId}) => {
+const ListItem: React.FC<Props> = ({itemID, listId}) => {
   const dispatch = useAppDispatch();
   const item = useSelector((state: RootState) =>
     listItemsSelectors.selectById(state, itemID),
@@ -22,6 +21,14 @@ const ListItem: React.FC<Props> = ({itemID, index, listId}) => {
     console.log(itemID);
     dispatch(removeListItem({id: listId, item: itemID}));
     dispatch(removeItem(itemID));
+  };
+
+  const CheckHandler = () => {
+    if (item?.isChecked) {
+      dispatch(updateItem({id: itemID, changes: {isChecked: false}}));
+    } else {
+      dispatch(updateItem({id: itemID, changes: {isChecked: true}}));
+    }
   };
 
   const createTwoButtonAlert = () =>
@@ -36,8 +43,11 @@ const ListItem: React.FC<Props> = ({itemID, index, listId}) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.editBox}>
-        <Text>{index}.</Text>
+      <View style={item?.isChecked ? styles.editBoxChecked : styles.editBox}>
+        <TouchableOpacity onPress={CheckHandler} style={styles.pressBox}>
+          {item?.isChecked && <View style={styles.pressBoxChecked} />}
+        </TouchableOpacity>
+
         <Text style={{maxWidth: '50%'}}>{item && item.name}</Text>
         <TouchableOpacity
           onPress={createTwoButtonAlert}
@@ -67,26 +77,49 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderBottomRightRadius: 20,
   },
+  editBoxChecked: {
+    minHeight: 50,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '80%',
+    padding: 12,
+    backgroundColor: '#C2F784',
+    borderWidth: 1,
+    borderColor: '#5D8233',
+    borderTopLeftRadius: 20,
+    borderBottomRightRadius: 20,
+  },
   input: {
     backgroundColor: '#fff',
     width: '60%',
     borderRadius: 5,
     height: '80%',
   },
-  button: {
-    backgroundColor: 'lightblue',
-    padding: 10,
-    borderTopLeftRadius: 10,
-    borderBottomRightRadius: 10,
-  },
   removeButton: {
-    backgroundColor: 'red',
+    backgroundColor: '#E98580',
     width: 40,
     padding: 10,
     borderTopLeftRadius: 10,
     borderBottomRightRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  pressBox: {
+    backgroundColor: '#fff',
+    height: 26,
+    width: 26,
+    borderRadius: 13,
+    borderWidth: 1,
+    borderColor: '#000',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  pressBoxChecked: {
+    backgroundColor: '#000',
+    borderRadius: 6,
+    height: 12,
+    width: 12,
   },
 });
 

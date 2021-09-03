@@ -54,12 +54,8 @@ const ListDetailsScreen = ({route}: ListDetailsProps) => {
         keyboardShouldPersistTaps={'handled'}
         style={styles.flatlist}
         data={list}
-        renderItem={({item, index}) => (
-          <ListItem
-            index={index + 1}
-            itemID={item}
-            listId={route.params.listId}
-          />
+        renderItem={({item}) => (
+          <ListItem itemID={item} listId={route.params.listId} />
         )}
         keyExtractor={item => item}
       />
