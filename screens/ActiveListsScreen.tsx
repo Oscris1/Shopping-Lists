@@ -1,19 +1,15 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
 import {MainProps} from '../navigation/RootNavigator';
 import {useSelector} from 'react-redux';
-import {RootState} from '../store';
+import ActiveList from '../components/ActiveList';
+import {activeListsSelectors} from '../store';
 
 const ActiveListsScreen = ({navigation}: MainProps) => {
-  const items = useSelector((state: RootState) => state.activeLists.lists);
-
-  useEffect(() => {
-    console.log(items);
-  }, [items]);
+  const lists = useSelector(activeListsSelectors.selectAll);
 
   return (
     <View style={styles.container}>
-      <Text>ActiveListsScreen</Text>
       <TouchableOpacity
         style={styles.newListButton}
         onPress={() => navigation.navigate('NewList')}>
@@ -22,14 +18,8 @@ const ActiveListsScreen = ({navigation}: MainProps) => {
 
       <FlatList
         style={styles.itemList}
-        data={items}
-        renderItem={({item}) => {
-          return (
-            <View style={styles.element}>
-              <Text>{item.name}</Text>
-            </View>
-          );
-        }}
+        data={lists}
+        renderItem={({item}) => <ActiveList name={item.name} id={item.id} />}
         keyExtractor={item => item.id.toString()}
       />
     </View>
@@ -49,6 +39,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 20,
     right: 20,
+    zIndex: 1,
 
     height: 70,
     width: 70,
@@ -56,12 +47,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'tomato',
   },
   itemList: {},
-  element: {
-    width: 200,
-    height: 200,
-    borderWidth: 1,
-    borderColor: 'black',
-  },
 });
 
 export default ActiveListsScreen;
