@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {useAppDispatch} from '../store';
-import {addNewList} from '../store/active-lists-slice';
+import {addList} from '../store/active-lists-slice';
+import {v4 as uuidv4} from 'uuid';
 import {
   View,
   Text,
@@ -8,23 +9,34 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
+
 const NewListScreen = () => {
   const dispatch = useAppDispatch();
-  const [name, setName] = useState('');
+  const [listName, setListName] = useState('');
+
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        onChangeText={setName}
-        value={name}
-        placeholder="name"
-      />
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => dispatch(addNewList(name))}>
-        <Text>Dodaj</Text>
-      </TouchableOpacity>
-      <Text>NewListScreen</Text>
+      <View style={styles.listNameBox}>
+        <TextInput
+          style={styles.input}
+          onChangeText={setListName}
+          value={listName}
+          placeholder="List Name"
+        />
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            dispatch(
+              addList({
+                id: uuidv4(),
+                name: listName,
+                listItems: [],
+              }),
+            );
+          }}>
+          <Text>Create</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -32,19 +44,23 @@ const NewListScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
   },
+  listNameBox: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 10,
+    flexDirection: 'row',
+  },
   input: {
-    borderWidth: 1,
-    borderColor: 'black',
+    backgroundColor: '#fff',
     width: 200,
   },
   button: {
-    borderWidth: 1,
-    borderColor: 'black',
-    padding: 30,
-    backgroundColor: 'pink',
+    padding: 15,
+    backgroundColor: '#B8DFD8',
+    borderBottomEndRadius: 20,
+    //borderTopEndRadius: 20,
   },
 });
 
