@@ -1,11 +1,6 @@
 import {configureStore} from '@reduxjs/toolkit';
-import activeListsSlice from './active-lists-slice';
-import listItemsSlice from './list-items-slice';
 import {useDispatch} from 'react-redux';
-import {listsAdapter} from './active-lists-slice';
-import {listItemsAdapter} from './list-items-slice';
 import {combineReducers} from 'redux';
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   persistStore,
@@ -17,6 +12,9 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
+
+import activeListsSlice, {listsAdapter} from './active-lists-slice';
+import listItemsSlice, {listItemsAdapter} from './list-items-slice';
 
 const persistConfig = {
   key: 'root',

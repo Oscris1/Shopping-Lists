@@ -9,9 +9,10 @@ import {removeListItem} from '../../store/active-lists-slice';
 interface Props {
   itemID: string;
   listId: string;
+  isArchived: boolean | undefined;
 }
 
-const ListItem: React.FC<Props> = ({itemID, listId}) => {
+const ListItem: React.FC<Props> = ({itemID, listId, isArchived}) => {
   const dispatch = useAppDispatch();
   const item = useSelector((state: RootState) =>
     listItemsSelectors.selectById(state, itemID),
@@ -44,18 +45,22 @@ const ListItem: React.FC<Props> = ({itemID, listId}) => {
   return (
     <View style={styles.container}>
       <View style={item?.isChecked ? styles.editBoxChecked : styles.editBox}>
-        <TouchableOpacity onPress={CheckHandler} style={styles.pressBox}>
-          {item?.isChecked && <View style={styles.pressBoxChecked} />}
-        </TouchableOpacity>
+        {!isArchived && (
+          <TouchableOpacity onPress={CheckHandler} style={styles.pressBox}>
+            {item?.isChecked && <View style={styles.pressBoxChecked} />}
+          </TouchableOpacity>
+        )}
 
         <Text style={{maxWidth: '50%', color: '#fff'}}>
           {item && item.name}
         </Text>
-        <TouchableOpacity
-          onPress={createTwoButtonAlert}
-          style={styles.removeButton}>
-          <Text>X</Text>
-        </TouchableOpacity>
+        {!isArchived && (
+          <TouchableOpacity
+            onPress={createTwoButtonAlert}
+            style={styles.removeButton}>
+            <Text>X</Text>
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );

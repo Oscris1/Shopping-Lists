@@ -4,6 +4,7 @@ interface ListInterface {
   id: string;
   name: string;
   listItems: string[];
+  isArchived: boolean;
 }
 
 export const listsAdapter = createEntityAdapter<ListInterface>({
@@ -15,16 +16,25 @@ const activeListsSlice = createSlice({
   initialState: listsAdapter.getInitialState(),
   reducers: {
     addList: listsAdapter.addOne,
-    updateList(state, {payload}) {
+
+    ArchiveList(state, {payload}) {
+      const newPayload = {
+        id: payload,
+        changes: {isArchived: true},
+      };
+      listsAdapter.updateOne(state, newPayload);
+    },
+
+    AddListItem(state, {payload}) {
       const newState = state.entities[payload.id]?.listItems;
       newState?.push(payload.item);
       const newPayload = {
         id: payload.id,
         changes: {listItems: newState},
       };
-
       listsAdapter.updateOne(state, newPayload);
     },
+
     removeListItem(state, {payload}) {
       const newList = state.entities[payload.id]?.listItems.filter(
         item => item !== payload.item,
@@ -38,5 +48,6 @@ const activeListsSlice = createSlice({
   },
 });
 
-export const {addList, updateList, removeListItem} = activeListsSlice.actions;
+export const {addList, AddListItem, removeListItem, ArchiveList} =
+  activeListsSlice.actions;
 export default activeListsSlice.reducer;

@@ -31,6 +31,7 @@ const NewListScreen = () => {
                 id: uuidv4(),
                 name: listName,
                 listItems: [],
+                isArchived: false,
               }),
             );
           }}>
