@@ -16,7 +16,7 @@ const ActiveList: React.FC<Props> = ({name, id}) => {
       onPress={() => {
         navigation.navigate('ListDetails', {listId: id, listName: name});
       }}>
-      <Text>{name}</Text>
+      <Text style={{color: '#fff'}}>{name}</Text>
     </TouchableOpacity>
   );
 };
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     width: windowWidth * 0.8,
     height: 150,
     borderWidth: 1,
-    borderColor: 'black',
+    borderColor: '#6C7B95',
     marginVertical: 10,
   },
 });

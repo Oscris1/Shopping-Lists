@@ -8,12 +8,18 @@ const TopTabNavigator = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarActiveTintColor: 'red',
-        tabBarPressColor: 'red',
+        tabBarActiveTintColor: '#E8F6EF',
+        tabBarPressColor: '#E8F6EF',
         tabBarInactiveTintColor: 'grey',
         tabBarIndicatorStyle: {
-          backgroundColor: 'red',
+          backgroundColor: '#E8F6EF',
         },
+        tabBarStyle: {
+          backgroundColor: '#07031A',
+        },
+      }}
+      sceneContainerStyle={{
+        backgroundColor: '#07031A',
       }}>
       <Tab.Screen
         name="ShopLists"

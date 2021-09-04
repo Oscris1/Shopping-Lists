@@ -13,7 +13,7 @@ const ActiveListsScreen = ({navigation}: MainProps) => {
       <TouchableOpacity
         style={styles.newListButton}
         onPress={() => navigation.navigate('NewList')}>
-        <Text style={{color: '#fff', fontSize: 30}}>+</Text>
+        <Text style={{color: '#07031A', fontSize: 30}}>+</Text>
       </TouchableOpacity>
 
       <FlatList
@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#07031A',
   },
   newListButton: {
     justifyContent: 'center',
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
     height: 70,
     width: 70,
     borderRadius: 35,
-    backgroundColor: 'tomato',
+    backgroundColor: '#E8F6EF',
   },
   itemList: {},
 });

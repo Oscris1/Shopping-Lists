@@ -22,6 +22,7 @@ const NewListScreen = () => {
           onChangeText={setListName}
           value={listName}
           placeholder="List Name"
+          placeholderTextColor="#6C7B95"
         />
         <TouchableOpacity
           style={styles.button}
@@ -34,6 +35,7 @@ const NewListScreen = () => {
                 isArchived: false,
               }),
             );
+            setListName('');
           }}>
           <Text>Create</Text>
         </TouchableOpacity>
@@ -46,6 +48,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+    backgroundColor: '#07031A',
   },
   listNameBox: {
     justifyContent: 'center',
@@ -54,14 +57,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   input: {
-    backgroundColor: '#fff',
-    width: 200,
+    backgroundColor: '#1B1B2F',
+    width: '50%',
+    color: '#fff',
+    borderBottomLeftRadius: 20,
+    borderTopLeftRadius: 30,
+    paddingLeft: 20,
   },
+
   button: {
     padding: 15,
-    backgroundColor: '#B8DFD8',
+    backgroundColor: '#fff',
+    borderRadius: 1,
+    borderColor: 'black',
     borderBottomEndRadius: 20,
-    //borderTopEndRadius: 20,
+    borderTopEndRadius: 20,
   },
 });
 

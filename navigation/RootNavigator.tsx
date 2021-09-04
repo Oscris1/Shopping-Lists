@@ -1,9 +1,9 @@
 import React from 'react';
 import {
-  createNativeStackNavigator,
-  NativeStackScreenProps,
-  NativeStackNavigationProp,
-} from '@react-navigation/native-stack';
+  createStackNavigator,
+  StackScreenProps,
+  StackNavigationProp,
+} from '@react-navigation/stack';
 import TopTabNavigator from './TopTabNavigator';
 import NewListScreen from '../screens/NewListScreen';
 import ListDetailsScreen from '../screens/ListDetailsScreen';
@@ -14,11 +14,15 @@ type StackParamList = {
   ListDetails: {listId: string; listName: string};
 };
 
-const Stack = createNativeStackNavigator<StackParamList>();
+const Stack = createStackNavigator<StackParamList>();
 
 const RootNavigator = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        cardStyle: {backgroundColor: '#07031A'},
+        animationEnabled: false,
+      }}>
       <Stack.Screen
         name="Main"
         component={TopTabNavigator}
@@ -27,7 +31,13 @@ const RootNavigator = () => {
       <Stack.Screen
         name="NewList"
         component={NewListScreen}
-        options={{title: 'Create New List'}}
+        options={{
+          title: 'Create New List',
+          headerStyle: {
+            backgroundColor: '#07031A',
+          },
+          headerTintColor: '#fff',
+        }}
       />
 
       <Stack.Screen
@@ -45,15 +55,12 @@ const RootNavigator = () => {
   );
 };
 
-export type MainScreenNavigationProp = NativeStackNavigationProp<
+export type MainScreenNavigationProp = StackNavigationProp<
   StackParamList,
   'Main'
 >;
 
-export type MainProps = NativeStackScreenProps<StackParamList, 'Main'>;
-export type ListDetailsProps = NativeStackScreenProps<
-  StackParamList,
-  'ListDetails'
->;
+export type MainProps = StackScreenProps<StackParamList, 'Main'>;
+export type ListDetailsProps = StackScreenProps<StackParamList, 'ListDetails'>;
 
 export default RootNavigator;
