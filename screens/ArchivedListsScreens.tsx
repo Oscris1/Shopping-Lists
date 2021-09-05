@@ -1,13 +1,24 @@
-import React from 'react';
-import {View, Text, StyleSheet, FlatList} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
 import {useSelector} from 'react-redux';
 import ActiveList from '../components/ActiveList';
 import {activeListsSelectors} from '../store';
 
 const ArchivedListsScreen = () => {
-  const lists = useSelector(activeListsSelectors.selectAll);
+  let lists = useSelector(activeListsSelectors.selectAll);
+
+  const [toggle, setToggle] = useState<boolean>(true);
+
+  const changeSortDirection = () => {
+    setToggle(!toggle);
+    return lists.reverse();
+  };
+
   return (
     <View style={styles.container}>
+      <TouchableOpacity style={styles.sortButton} onPress={changeSortDirection}>
+        <Text style={{color: '#fff'}}>Change sort direction</Text>
+      </TouchableOpacity>
       <FlatList
         style={styles.itemList}
         data={lists.filter(item => item.isArchived === true)}
@@ -31,6 +42,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#07031A',
+  },
+  sortButton: {
+    marginVertical: 10,
+    borderWidth: 1,
+    borderColor: '#fff',
+    padding: 10,
   },
   itemList: {},
 });

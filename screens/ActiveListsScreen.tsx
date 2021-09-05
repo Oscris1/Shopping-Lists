@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
 import {MainProps} from '../navigation/RootNavigator';
 import {useSelector} from 'react-redux';
@@ -7,6 +7,12 @@ import {activeListsSelectors} from '../store';
 
 const ActiveListsScreen = ({navigation}: MainProps) => {
   const lists = useSelector(activeListsSelectors.selectAll);
+  const [toggle, setToggle] = useState<boolean>(true);
+
+  const changeSortDirection = () => {
+    setToggle(!toggle);
+    return lists.reverse();
+  };
 
   return (
     <View style={styles.container}>
@@ -14,6 +20,10 @@ const ActiveListsScreen = ({navigation}: MainProps) => {
         style={styles.newListButton}
         onPress={() => navigation.navigate('NewList')}>
         <Text style={{color: '#07031A', fontSize: 30}}>+</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={changeSortDirection} style={styles.sortButton}>
+        <Text style={{color: '#fff'}}>Change sort direction</Text>
       </TouchableOpacity>
 
       <FlatList
@@ -53,6 +63,12 @@ const styles = StyleSheet.create({
     width: 70,
     borderRadius: 35,
     backgroundColor: '#E8F6EF',
+  },
+  sortButton: {
+    marginVertical: 10,
+    borderWidth: 1,
+    borderColor: '#fff',
+    padding: 10,
   },
   itemList: {},
 });
