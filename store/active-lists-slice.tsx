@@ -10,6 +10,7 @@ interface ListInterface {
 
 export const listsAdapter = createEntityAdapter<ListInterface>({
   selectId: list => list.id,
+  sortComparer: (a, b) => b.createdAt - a.createdAt,
 });
 
 const activeListsSlice = createSlice({
