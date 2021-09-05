@@ -9,10 +9,32 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
+import {NewListProps} from '../navigation/RootNavigator';
 
-const NewListScreen = () => {
+const NewListScreen = ({navigation}: NewListProps) => {
   const dispatch = useAppDispatch();
   const [listName, setListName] = useState('');
+
+  const createNewListHandler = () => {
+    if (listName) {
+      const id = uuidv4();
+      dispatch(
+        addList({
+          id,
+          name: listName,
+          listItems: [],
+          isArchived: false,
+          createdAt: new Date().getTime(),
+        }),
+      );
+      navigation.pop();
+      navigation.navigate('ListDetails', {
+        listId: id,
+        listName: listName,
+      });
+      setListName('');
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -24,22 +46,7 @@ const NewListScreen = () => {
           placeholder="List Name"
           placeholderTextColor="#6C7B95"
         />
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            if (listName) {
-              dispatch(
-                addList({
-                  id: uuidv4(),
-                  name: listName,
-                  listItems: [],
-                  isArchived: false,
-                  createdAt: new Date().getTime(),
-                }),
-              );
-              setListName('');
-            }
-          }}>
+        <TouchableOpacity style={styles.button} onPress={createNewListHandler}>
           <Text>Create</Text>
         </TouchableOpacity>
       </View>

@@ -61,6 +61,7 @@ export type MainScreenNavigationProp = StackNavigationProp<
 >;
 
 export type MainProps = StackScreenProps<StackParamList, 'Main'>;
+export type NewListProps = StackScreenProps<StackParamList, 'NewList'>;
 export type ListDetailsProps = StackScreenProps<StackParamList, 'ListDetails'>;
 
 export default RootNavigator;
