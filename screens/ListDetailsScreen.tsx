@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   FlatList,
   Keyboard,
+  Alert,
 } from 'react-native';
 import {useSelector} from 'react-redux';
 import {v4 as uuidv4} from 'uuid';
@@ -28,7 +29,7 @@ const ListDetailsScreen = ({route}: ListDetailsProps) => {
   const isArchived = list?.isArchived;
   const listItemsIds = list?.listItems;
 
-  const addItemWrapper = () => {
+  const addItemHandler = () => {
     if (name) {
       const id = uuidv4();
       dispatch(AddListItem({id: route.params.listId, item: id}));
@@ -43,6 +44,20 @@ const ListDetailsScreen = ({route}: ListDetailsProps) => {
     dispatch(ArchiveList(listId));
   };
 
+  const ArchiveAlert = () =>
+    Alert.alert(
+      'Archive the list',
+      'Are you sure you want to archive the list',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'Yes', onPress: changeToArchivedHandler},
+      ],
+    );
+
   return (
     <View style={styles.container}>
       {!isArchived && (
@@ -55,7 +70,7 @@ const ListDetailsScreen = ({route}: ListDetailsProps) => {
             placeholderTextColor="#6C7B95"
           />
 
-          <TouchableOpacity style={styles.button} onPress={addItemWrapper}>
+          <TouchableOpacity style={styles.button} onPress={addItemHandler}>
             <Text>Add!</Text>
           </TouchableOpacity>
         </View>
@@ -76,9 +91,7 @@ const ListDetailsScreen = ({route}: ListDetailsProps) => {
       />
       {!isArchived && (
         <View style={styles.footer}>
-          <TouchableOpacity
-            onPress={changeToArchivedHandler}
-            style={styles.archiveButton}>
+          <TouchableOpacity onPress={ArchiveAlert} style={styles.archiveButton}>
             <Text style={{color: '#fff'}}>Archive</Text>
           </TouchableOpacity>
         </View>
