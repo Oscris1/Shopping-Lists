@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useAppDispatch} from '../store';
-import {addList} from '../store/active-lists-slice';
+import {addList} from '../store/lists-slice';
 import {v4 as uuidv4} from 'uuid';
 import {
   View,

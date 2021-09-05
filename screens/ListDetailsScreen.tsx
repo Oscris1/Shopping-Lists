@@ -14,7 +14,7 @@ import {v4 as uuidv4} from 'uuid';
 
 import {ListDetailsProps} from '../navigation/RootNavigator';
 import {activeListsSelectors, RootState, useAppDispatch} from '../store';
-import {AddListItem, ArchiveList} from '../store/active-lists-slice';
+import {AddListItem, ArchiveList} from '../store/lists-slice';
 import {addItem} from '../store/list-items-slice';
 import ListItem from '../components/ListDetails/ListItem';
 

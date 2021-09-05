@@ -13,7 +13,7 @@ import {
   REGISTER,
 } from 'redux-persist';
 
-import activeListsSlice, {listsAdapter} from './active-lists-slice';
+import listsSlice, {listsAdapter} from './lists-slice';
 import listItemsSlice, {listItemsAdapter} from './list-items-slice';
 
 const persistConfig = {
@@ -22,7 +22,7 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  activeLists: activeListsSlice,
+  activeLists: listsSlice,
   listItems: listItemsSlice,
 });
 

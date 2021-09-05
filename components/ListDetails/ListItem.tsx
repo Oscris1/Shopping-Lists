@@ -4,7 +4,7 @@ import {useSelector} from 'react-redux';
 import {listItemsSelectors, RootState} from '../../store';
 import {useAppDispatch} from '../../store';
 import {removeItem, updateItem} from '../../store/list-items-slice';
-import {removeListItem} from '../../store/active-lists-slice';
+import {removeListItem} from '../../store/lists-slice';
 
 interface Props {
   itemID: string;

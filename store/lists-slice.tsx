@@ -13,7 +13,7 @@ export const listsAdapter = createEntityAdapter<ListInterface>({
   sortComparer: (a, b) => b.createdAt - a.createdAt,
 });
 
-const activeListsSlice = createSlice({
+const listsSlice = createSlice({
   name: 'activeLists',
   initialState: listsAdapter.getInitialState(),
   reducers: {
@@ -51,5 +51,5 @@ const activeListsSlice = createSlice({
 });
 
 export const {addList, AddListItem, removeListItem, ArchiveList} =
-  activeListsSlice.actions;
-export default activeListsSlice.reducer;
+  listsSlice.actions;
+export default listsSlice.reducer;
