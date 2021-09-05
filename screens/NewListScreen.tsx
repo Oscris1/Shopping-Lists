@@ -33,6 +33,7 @@ const NewListScreen = () => {
                 name: listName,
                 listItems: [],
                 isArchived: false,
+                createdAt: new Date().getTime(),
               }),
             );
             setListName('');

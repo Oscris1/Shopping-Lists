@@ -5,6 +5,7 @@ interface ListInterface {
   name: string;
   listItems: string[];
   isArchived: boolean;
+  createdAt: number;
 }
 
 export const listsAdapter = createEntityAdapter<ListInterface>({

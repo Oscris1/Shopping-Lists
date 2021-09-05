@@ -19,7 +19,14 @@ const ActiveListsScreen = ({navigation}: MainProps) => {
       <FlatList
         style={styles.itemList}
         data={lists.filter(item => item.isArchived === false)}
-        renderItem={({item}) => <ActiveList name={item.name} id={item.id} />}
+        renderItem={({item}) => (
+          <ActiveList
+            name={item.name}
+            id={item.id}
+            createdAt={item.createdAt}
+            itemsCount={item.listItems.length}
+          />
+        )}
         keyExtractor={item => item.id.toString()}
       />
     </View>
