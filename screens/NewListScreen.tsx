@@ -27,16 +27,18 @@ const NewListScreen = () => {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            dispatch(
-              addList({
-                id: uuidv4(),
-                name: listName,
-                listItems: [],
-                isArchived: false,
-                createdAt: new Date().getTime(),
-              }),
-            );
-            setListName('');
+            if (listName) {
+              dispatch(
+                addList({
+                  id: uuidv4(),
+                  name: listName,
+                  listItems: [],
+                  isArchived: false,
+                  createdAt: new Date().getTime(),
+                }),
+              );
+              setListName('');
+            }
           }}>
           <Text>Create</Text>
         </TouchableOpacity>
