@@ -23,7 +23,7 @@ const ActiveListsScreen = ({navigation}: MainProps) => {
       </TouchableOpacity>
 
       <TouchableOpacity onPress={changeSortDirection} style={styles.sortButton}>
-        <Text style={{color: '#fff'}}>Change sort direction</Text>
+        <Text style={{color: '#fff'}}>Change the sort direction</Text>
       </TouchableOpacity>
 
       <FlatList

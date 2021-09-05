@@ -19,7 +19,6 @@ const ListItem: React.FC<Props> = ({itemID, listId, isArchived}) => {
   );
 
   const removeItemHandler = () => {
-    console.log(itemID);
     dispatch(removeListItem({id: listId, item: itemID}));
     dispatch(removeItem(itemID));
   };

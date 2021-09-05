@@ -17,7 +17,7 @@ const ArchivedListsScreen = () => {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.sortButton} onPress={changeSortDirection}>
-        <Text style={{color: '#fff'}}>Change sort direction</Text>
+        <Text style={{color: '#fff'}}>Change the sort direction</Text>
       </TouchableOpacity>
       <FlatList
         style={styles.itemList}

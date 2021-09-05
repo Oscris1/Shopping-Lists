@@ -20,7 +20,7 @@ const ListCard: React.FC<Props> = ({name, id, createdAt, itemsCount}) => {
         navigation.navigate('ListDetails', {listId: id, listName: name});
       }}>
       <Text style={styles.listName}>{name}</Text>
-      <Text style={styles.itemsCount}>Items in list: {itemsCount}</Text>
+      <Text style={styles.itemsCount}>Items on the list: {itemsCount}</Text>
       <Text style={styles.createdAt}>{new Date(createdAt).toDateString()}</Text>
     </TouchableOpacity>
   );
