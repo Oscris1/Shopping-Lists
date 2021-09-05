@@ -12,7 +12,7 @@ interface Props {
 
 const ListCard: React.FC<Props> = ({name, id, createdAt, itemsCount}) => {
   const navigation = useNavigation<MainScreenNavigationProp>();
-  console.log(new Date(new Date(createdAt).getTime()));
+
   return (
     <TouchableOpacity
       style={styles.container}

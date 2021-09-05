@@ -2,26 +2,31 @@ import React, {useState} from 'react';
 import {View, Text, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
 import {useSelector} from 'react-redux';
 import ListCard from '../components/ListCard';
+import SortButton from '../components/SortButton';
 import {activeListsSelectors} from '../store';
+import {ListInterface} from '../store/lists-slice';
 
 const ArchivedListsScreen = () => {
-  let lists = useSelector(activeListsSelectors.selectAll);
-
+  const lists = useSelector(activeListsSelectors.selectAll);
+  const reversedLists = [...lists].reverse();
   const [toggle, setToggle] = useState<boolean>(true);
 
-  const changeSortDirection = () => {
-    setToggle(!toggle);
-    return lists.reverse();
+  const listsToDisplay = (toggle: boolean): ListInterface[] => {
+    if (toggle) {
+      return lists;
+    } else {
+      return reversedLists;
+    }
   };
+
+  const flatListData = listsToDisplay(toggle);
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.sortButton} onPress={changeSortDirection}>
-        <Text style={{color: '#fff'}}>Change the sort direction</Text>
-      </TouchableOpacity>
+      <SortButton toggle={toggle} onPress={() => setToggle(!toggle)} />
       <FlatList
         style={styles.itemList}
-        data={lists.filter(item => item.isArchived === true)}
+        data={flatListData.filter(item => item.isArchived === true)}
         renderItem={({item}) => (
           <ListCard
             name={item.name}
@@ -42,12 +47,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#07031A',
-  },
-  sortButton: {
-    marginVertical: 10,
-    borderWidth: 1,
-    borderColor: '#fff',
-    padding: 10,
   },
   itemList: {},
 });

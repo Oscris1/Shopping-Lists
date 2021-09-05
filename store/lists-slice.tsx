@@ -1,6 +1,6 @@
 import {createSlice, createEntityAdapter} from '@reduxjs/toolkit';
 
-interface ListInterface {
+export interface ListInterface {
   id: string;
   name: string;
   listItems: string[];

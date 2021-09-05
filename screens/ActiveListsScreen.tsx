@@ -4,15 +4,23 @@ import {MainProps} from '../navigation/RootNavigator';
 import {useSelector} from 'react-redux';
 import ListCard from '../components/ListCard';
 import {activeListsSelectors} from '../store';
+import SortButton from '../components/SortButton';
+import {ListInterface} from '../store/lists-slice';
 
 const ActiveListsScreen = ({navigation}: MainProps) => {
   const lists = useSelector(activeListsSelectors.selectAll);
+  const reversedLists = [...lists].reverse();
   const [toggle, setToggle] = useState<boolean>(true);
 
-  const changeSortDirection = () => {
-    setToggle(!toggle);
-    return lists.reverse();
+  const listsToDisplay = (toggle: boolean): ListInterface[] => {
+    if (toggle) {
+      return lists;
+    } else {
+      return reversedLists;
+    }
   };
+
+  const flatListData = listsToDisplay(toggle);
 
   return (
     <View style={styles.container}>
@@ -22,13 +30,11 @@ const ActiveListsScreen = ({navigation}: MainProps) => {
         <Text style={{color: '#07031A', fontSize: 30}}>+</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={changeSortDirection} style={styles.sortButton}>
-        <Text style={{color: '#fff'}}>Change the sort direction</Text>
-      </TouchableOpacity>
+      <SortButton toggle={toggle} onPress={() => setToggle(!toggle)} />
 
       <FlatList
         style={styles.itemList}
-        data={lists.filter(item => item.isArchived === false)}
+        data={flatListData.filter(item => item.isArchived === false)}
         renderItem={({item}) => (
           <ListCard
             name={item.name}
@@ -63,12 +69,6 @@ const styles = StyleSheet.create({
     width: 70,
     borderRadius: 35,
     backgroundColor: '#E8F6EF',
-  },
-  sortButton: {
-    marginVertical: 10,
-    borderWidth: 1,
-    borderColor: '#fff',
-    padding: 10,
   },
   itemList: {},
 });
