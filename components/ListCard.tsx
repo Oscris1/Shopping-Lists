@@ -10,7 +10,7 @@ interface Props {
   itemsCount: number;
 }
 
-const ActiveList: React.FC<Props> = ({name, id, createdAt, itemsCount}) => {
+const ListCard: React.FC<Props> = ({name, id, createdAt, itemsCount}) => {
   const navigation = useNavigation<MainScreenNavigationProp>();
   console.log(new Date(new Date(createdAt).getTime()));
   return (
@@ -57,4 +57,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ActiveList;
+export default ListCard;

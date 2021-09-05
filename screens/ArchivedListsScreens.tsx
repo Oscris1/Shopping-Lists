@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
 import {useSelector} from 'react-redux';
-import ActiveList from '../components/ActiveList';
+import ListCard from '../components/ListCard';
 import {activeListsSelectors} from '../store';
 
 const ArchivedListsScreen = () => {
@@ -23,7 +23,7 @@ const ArchivedListsScreen = () => {
         style={styles.itemList}
         data={lists.filter(item => item.isArchived === true)}
         renderItem={({item}) => (
-          <ActiveList
+          <ListCard
             name={item.name}
             id={item.id}
             createdAt={item.createdAt}

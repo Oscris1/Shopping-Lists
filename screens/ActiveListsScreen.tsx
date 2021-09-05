@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
 import {MainProps} from '../navigation/RootNavigator';
 import {useSelector} from 'react-redux';
-import ActiveList from '../components/ActiveList';
+import ListCard from '../components/ListCard';
 import {activeListsSelectors} from '../store';
 
 const ActiveListsScreen = ({navigation}: MainProps) => {
@@ -30,7 +30,7 @@ const ActiveListsScreen = ({navigation}: MainProps) => {
         style={styles.itemList}
         data={lists.filter(item => item.isArchived === false)}
         renderItem={({item}) => (
-          <ActiveList
+          <ListCard
             name={item.name}
             id={item.id}
             createdAt={item.createdAt}
